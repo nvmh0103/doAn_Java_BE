@@ -1,5 +1,6 @@
 package com.example.movies.users;
 
+import com.example.movies.jwt.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,10 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-@Controller
+@RestController
 public class usersController {
     @Autowired
     private usersRepository UsersRepository;
+    @Autowired
+    private JwtUtil jwt;
+
+
     private PasswordEncoder passwordEncoder=userServices.encoder();
 
 
@@ -26,8 +31,10 @@ public class usersController {
             return new ResponseEntity<userServices.response>(new userServices.badResponse("Email has been taken!"), HttpStatus.BAD_REQUEST);
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        String token=jwt.generateToken(user.getEmail());
         UsersRepository.save(newUser);
-        return new ResponseEntity<userServices.response>(new userServices.okResponse("Successfully!"),HttpStatus.CREATED);
+
+        return new ResponseEntity<userServices.response>(new userServices.tokenResponse(token),HttpStatus.CREATED);
     }
 
     @GetMapping(path="/get")
@@ -49,5 +56,11 @@ public class usersController {
         }
 
         return new ResponseEntity<userServices.response>(new userServices.badResponse("Login failed!"),HttpStatus.BAD_REQUEST);
+    }
+    @GetMapping(path="/getUserProfile")
+    public users getUserProfile(@RequestAttribute("email") String email){
+        System.out.println(email);
+        users user= UsersRepository.findByEmail(email);
+        return user;
     }
 }

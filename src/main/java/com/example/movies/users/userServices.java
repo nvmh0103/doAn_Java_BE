@@ -10,7 +10,7 @@ public class userServices {
     public static class response{
 
     }
-    @ResponseStatus(HttpStatus.ACCEPTED)
+
     public static class okResponse extends response{
         private String message;
 
@@ -26,7 +26,6 @@ public class userServices {
             this.message = message;
         }
     }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public static class badResponse extends response{
         private String error;
 
@@ -42,6 +41,22 @@ public class userServices {
             this.error = error;
         }
     }
+    public static class tokenResponse extends response{
+        private String token;
+
+        public tokenResponse(String token) {
+            this.token = token;
+        }
+
+        public String getToken() {
+            return token;
+        }
+
+        public void setToken(String token) {
+            this.token = token;
+        }
+    }
+
     @Bean
     public static PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();

@@ -14,7 +14,7 @@ import java.util.Set;
 public class users {
     @Id @GeneratedValue
     private long id;
-    private String full_name;
+    private String fullName;
     private String email;
     private String password;
     // relationship
@@ -35,9 +35,10 @@ public class users {
     public users(){
 
     }
-    public users(long id, String full_name, String email, String password) {
+
+    public users(long id, String fullName, String email, String password) {
         this.id = id;
-        this.full_name = full_name;
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
     }
@@ -50,12 +51,12 @@ public class users {
         this.id = id;
     }
 
-    public String getFull_name() {
-        return full_name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public String getEmail() {
