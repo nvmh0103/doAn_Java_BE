@@ -50,10 +50,11 @@ public class usersController {
             return new ResponseEntity<userServices.response>(new userServices.badResponse("Email or password is not correct!"),HttpStatus.BAD_REQUEST);
         }
         if (passwordEncoder.matches(user.getPassword(),newUser.getPassword())){
-            return new ResponseEntity<userServices.response>(new userServices.okResponse("Login success!"),HttpStatus.OK);
+            String token= jwt.generateToken(newUser.getEmail());
+            return new ResponseEntity<userServices.response>(new userServices.tokenResponse(token),HttpStatus.OK);
         }
 
-        return new ResponseEntity<userServices.response>(new userServices.badResponse("Login failed!"),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<userServices.response>(new userServices.badResponse("Email or password is not correct!"),HttpStatus.BAD_REQUEST);
     }
     @GetMapping(path="/getUserProfile")
     public users getUserProfile(@RequestAttribute("email") String email){
