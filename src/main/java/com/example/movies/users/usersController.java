@@ -21,8 +21,6 @@ public class usersController {
     private PasswordEncoder passwordEncoder=userServices.encoder();
 
 
-
-
     @PostMapping(path="/add",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<userServices.response> addNewUser(@RequestBody users user){
