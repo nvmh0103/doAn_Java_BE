@@ -17,6 +17,8 @@ public class users {
     private String fullName;
     private String email;
     private String password;
+    private String phone;
+    private String userName;
     // relationship
 
     @OneToMany(
@@ -36,11 +38,13 @@ public class users {
 
     }
 
-    public users(long id, String fullName, String email, String password) {
+    public users(long id, String fullName, String email, String password, String phone, String userName) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.password = password;
+        this.phone = phone;
+        this.userName = userName;
     }
 
     public long getId() {
@@ -73,5 +77,21 @@ public class users {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

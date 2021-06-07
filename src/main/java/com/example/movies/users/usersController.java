@@ -35,7 +35,7 @@ public class usersController {
         return new ResponseEntity<userServices.response>(new userServices.tokenResponse(token),HttpStatus.CREATED);
     }
 
-    @GetMapping(path="/get")
+    @GetMapping(path="users/get")
     @ResponseBody
     public Iterable<users> getAllUsers() {
         return UsersRepository.findAll();
