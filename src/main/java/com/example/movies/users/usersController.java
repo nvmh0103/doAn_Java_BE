@@ -32,7 +32,7 @@ public class usersController {
         String token=jwt.generateToken(user.getEmail());
         UsersRepository.save(newUser);
 
-        return new ResponseEntity<userServices.response>(new userServices.tokenResponse(token),HttpStatus.CREATED);
+        return new ResponseEntity<userServices.response>(new userServices.tokenResponse(token,newUser.getAdmin()),HttpStatus.CREATED);
     }
 
     @GetMapping(path="users/get")
@@ -51,7 +51,7 @@ public class usersController {
         }
         if (passwordEncoder.matches(user.getPassword(),newUser.getPassword())){
             String token= jwt.generateToken(newUser.getEmail());
-            return new ResponseEntity<userServices.response>(new userServices.tokenResponse(token),HttpStatus.OK);
+            return new ResponseEntity<userServices.response>(new userServices.tokenResponse(token,newUser.getAdmin()),HttpStatus.OK);
         }
 
         return new ResponseEntity<userServices.response>(new userServices.badResponse("Email or password is not correct!"),HttpStatus.BAD_REQUEST);

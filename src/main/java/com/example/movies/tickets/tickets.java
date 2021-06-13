@@ -19,4 +19,34 @@ public class tickets {
 
     @OneToMany(mappedBy = "tickets")
     private Set<booking_details> booking_details;
+
+    public tickets(long id, int price, String type) {
+        this.id = id;
+        this.price = price;
+        this.type = type;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

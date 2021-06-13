@@ -43,9 +43,11 @@ public class userServices {
     }
     public static class tokenResponse extends response{
         private String token;
+        private int isAdmin;
 
-        public tokenResponse(String token) {
+        public tokenResponse(String token,int isAdmin) {
             this.token = token;
+            this.isAdmin=isAdmin;
         }
 
         public String getToken() {
@@ -54,6 +56,14 @@ public class userServices {
 
         public void setToken(String token) {
             this.token = token;
+        }
+
+        public int getIsAdmin() {
+            return isAdmin;
+        }
+
+        public void setIsAdmin(int isAdmin) {
+            this.isAdmin = isAdmin;
         }
     }
 
