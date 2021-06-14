@@ -11,15 +11,24 @@ public class seats {
     @Id
     private long id;
     private String name;
-    private byte status;
+    private String kind;
+    private int basePrice;
+
     // relationship
-    @OneToMany(mappedBy="seats")
-    private Set<booking_details> booking_details;
 
     @ManyToOne
     @JoinColumn(name = "rooms_id")
     private rooms rooms;
 
+    public seats(){
+
+    }
+    public seats(long id, String name, String kind, int basePrice) {
+        this.id = id;
+        this.name = name;
+        this.kind = kind;
+        this.basePrice = basePrice;
+    }
 
     public long getId() {
         return id;
@@ -37,20 +46,21 @@ public class seats {
         this.name = name;
     }
 
-    public byte getStatus() {
-        return status;
+    public String getKind() {
+        return kind;
     }
 
-    public void setStatus(byte status) {
-        this.status = status;
+    public void setKind(String kind) {
+        this.kind = kind;
     }
 
-    @Override
-    public String toString() {
-        return "seats{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", status=" + status +
-                '}';
+    public int getBasePrice() {
+        return basePrice;
     }
+
+    public void setBasePrice(int basePrice) {
+        this.basePrice = basePrice;
+    }
+
+
 }

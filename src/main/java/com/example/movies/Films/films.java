@@ -1,8 +1,5 @@
 package com.example.movies.Films;
 
-import com.example.movies.comments.comments;
-import com.example.movies.ratings.ratings;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -23,11 +20,6 @@ public class films {
 
     // relationship
 
-    @OneToMany(mappedBy = "films")
-    private Set<ratings> ratings;
-
-    @OneToMany(mappedBy="films")
-    private Set<comments> comments;
 
     public films(){
 

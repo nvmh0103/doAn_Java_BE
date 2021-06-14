@@ -1,8 +1,8 @@
 package com.example.movies.users;
 
-import com.example.movies.bookings.bookings;
-import com.example.movies.comments.comments;
-import com.example.movies.ratings.ratings;
+
+
+import com.example.movies.bookings_detail.booking_details;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -22,18 +22,8 @@ public class users {
     private int admin;
     // relationship
 
-    @OneToMany(
-            mappedBy = "users",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
-    private Set<ratings> ratings;
-
-    @OneToMany(mappedBy="users")
-    private Set<comments> comments;
-
-    @OneToMany(mappedBy="users")
-    private Set<bookings> bookings;
+    @OneToMany(mappedBy = "users")
+    private Set<booking_details> booking_details;
 
     public users(){
 

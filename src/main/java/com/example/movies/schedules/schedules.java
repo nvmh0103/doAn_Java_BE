@@ -28,6 +28,10 @@ public class schedules {
     @OneToMany(mappedBy = "schedules")
     private Set<tickets> tickets;
 
+    public schedules(){
+
+    }
+
     public schedules(long id, Timestamp startAt, Timestamp endAt) {
         this.id = id;
         this.startAt = startAt;

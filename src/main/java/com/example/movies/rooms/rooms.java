@@ -18,9 +18,10 @@ public class rooms {
     @OneToMany(mappedBy = "rooms")
     private Set<seats> seats;
 
-//    @OneToMany(mappedBy= "rooms")
-//    private Set<schedules> schedule;
-//
+    @OneToMany(mappedBy= "rooms")
+    private Set<schedules> schedule;
+
+
     public long getId() {
         return id;
     }

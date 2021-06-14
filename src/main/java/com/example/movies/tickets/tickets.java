@@ -17,8 +17,8 @@ public class tickets {
     @JoinColumn(name="schedules_id")
     private schedules schedules;
 
-    @OneToMany(mappedBy = "tickets")
-    private Set<booking_details> booking_details;
+    @OneToOne(mappedBy = "tickets")
+    private booking_details booking_details;
 
     public tickets(long id, int price, String type) {
         this.id = id;
