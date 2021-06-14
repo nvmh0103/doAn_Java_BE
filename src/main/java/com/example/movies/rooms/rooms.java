@@ -13,7 +13,6 @@ public class rooms {
     @Id
     private long id;
     private String name;
-    private byte status;
     // relationship
     @OneToMany(mappedBy = "rooms")
     private Set<seats> seats;
@@ -21,6 +20,14 @@ public class rooms {
     @OneToMany(mappedBy= "rooms")
     private Set<schedules> schedule;
 
+    public rooms(){
+
+    }
+
+    public rooms(long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public long getId() {
         return id;
@@ -38,11 +45,4 @@ public class rooms {
         this.name = name;
     }
 
-    public byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(byte status) {
-        this.status = status;
-    }
 }

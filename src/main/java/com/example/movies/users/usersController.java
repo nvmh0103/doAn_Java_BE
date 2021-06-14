@@ -58,7 +58,6 @@ public class usersController {
     }
     @GetMapping(path="/getUserProfile")
     public users getUserProfile(@RequestAttribute("email") String email){
-        System.out.println(email);
         users user= UsersRepository.findByEmail(email);
         return user;
     }
