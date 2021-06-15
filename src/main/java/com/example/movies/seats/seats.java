@@ -6,6 +6,8 @@ import com.example.movies.rooms.rooms;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,7 +26,7 @@ public class seats {
     private rooms rooms;
 
     @OneToMany(mappedBy = "seats")
-    private Set<bookedSeat> bookedSeats;
+    private List<bookedSeat> bookedSeats=new ArrayList<>();
 
     public seats(){
 
@@ -78,11 +80,11 @@ public class seats {
         this.rooms = rooms;
     }
 
-    public Set<bookedSeat> getBookedSeats() {
+    public List<bookedSeat> getBookedSeats() {
         return bookedSeats;
     }
 
-    public void setBookedSeats(Set<bookedSeat> bookedSeats) {
+    public void setBookedSeats(List<bookedSeat> bookedSeats) {
         this.bookedSeats = bookedSeats;
     }
 }

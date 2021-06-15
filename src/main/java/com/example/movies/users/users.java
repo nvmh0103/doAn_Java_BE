@@ -7,6 +7,8 @@ import com.example.movies.bookings_detail.booking_details;
 import javax.persistence.*;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +25,7 @@ public class users {
     // relationship
 
     @OneToMany(mappedBy = "users")
-    private Set<booking_details> booking_details;
+    private List<booking_details> booking_details=new ArrayList<>();
 
     public users(){
 
@@ -93,5 +95,13 @@ public class users {
 
     public void setAdmin(int admin) {
         this.admin = admin;
+    }
+
+    public List<com.example.movies.bookings_detail.booking_details> getBooking_details() {
+        return booking_details;
+    }
+
+    public void setBooking_details(List<com.example.movies.bookings_detail.booking_details> booking_details) {
+        this.booking_details = booking_details;
     }
 }

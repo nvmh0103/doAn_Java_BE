@@ -32,7 +32,7 @@ public class schedules {
 
     @JsonIgnore
     @OneToMany(mappedBy = "schedules")
-    private Set<tickets> tickets;
+    private List<tickets> tickets=new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy="schedules")
@@ -97,6 +97,22 @@ public class schedules {
 
     public void setRooms(com.example.movies.rooms.rooms rooms) {
         this.rooms = rooms;
+    }
+
+    public List<com.example.movies.tickets.tickets> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(List<com.example.movies.tickets.tickets> tickets) {
+        this.tickets = tickets;
+    }
+
+    public List<bookedSeat> getBookedSeats() {
+        return bookedSeats;
+    }
+
+    public void setBookedSeats(List<bookedSeat> bookedSeats) {
+        this.bookedSeats = bookedSeats;
     }
 
     @Override
