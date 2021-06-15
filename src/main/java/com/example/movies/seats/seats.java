@@ -1,14 +1,16 @@
 package com.example.movies.seats;
 
+import com.example.movies.bookedSeat.bookedSeat;
 import com.example.movies.bookings_detail.booking_details;
 import com.example.movies.rooms.rooms;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 public class seats {
-    @Id
+    @Id @GeneratedValue
     private long id;
     private String name;
     private String kind;
@@ -16,9 +18,13 @@ public class seats {
 
     // relationship
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "rooms_id")
     private rooms rooms;
+
+    @OneToMany(mappedBy = "seats")
+    private Set<bookedSeat> bookedSeats;
 
     public seats(){
 
@@ -29,6 +35,8 @@ public class seats {
         this.kind = kind;
         this.basePrice = basePrice;
     }
+
+
 
     public long getId() {
         return id;
@@ -62,5 +70,19 @@ public class seats {
         this.basePrice = basePrice;
     }
 
+    public com.example.movies.rooms.rooms getRooms() {
+        return rooms;
+    }
 
+    public void setRooms(com.example.movies.rooms.rooms rooms) {
+        this.rooms = rooms;
+    }
+
+    public Set<bookedSeat> getBookedSeats() {
+        return bookedSeats;
+    }
+
+    public void setBookedSeats(Set<bookedSeat> bookedSeats) {
+        this.bookedSeats = bookedSeats;
+    }
 }

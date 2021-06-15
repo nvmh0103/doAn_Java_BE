@@ -1,11 +1,12 @@
-package com.example.movies.Films;
+package com.example.movies.films;
+
+import com.example.movies.schedules.schedules;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "films")
 public class films {
     @Id @GeneratedValue
     private long id;
@@ -18,14 +19,14 @@ public class films {
     private String pictureLink;
 
 
-    // relationship
-
+    @OneToMany
+    private List<schedules> listSchedules= new ArrayList<>();
 
     public films(){
 
     }
 
-    public films(long id, String name, String actor, String director, int duration, String description, String country, String pictureLink) {
+    public films(long id, String name, String actor, String director, int duration, String description, String country, String pictureLink, List<schedules> listSchedules) {
         this.id = id;
         this.name = name;
         this.actor = actor;
@@ -34,6 +35,7 @@ public class films {
         this.description = description;
         this.country = country;
         this.pictureLink = pictureLink;
+        this.listSchedules = listSchedules;
     }
 
     public long getId() {
@@ -98,5 +100,13 @@ public class films {
 
     public void setPictureLink(String pictureLink) {
         this.pictureLink = pictureLink;
+    }
+
+    public List<schedules> getListSchedules() {
+        return listSchedules;
+    }
+
+    public void setListSchedules(List<schedules> listSchedules) {
+        this.listSchedules = listSchedules;
     }
 }

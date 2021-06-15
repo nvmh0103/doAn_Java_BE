@@ -1,4 +1,4 @@
-package com.example.movies.Films;
+package com.example.movies.films;
 
 public class filmsServices {
     public static class response{

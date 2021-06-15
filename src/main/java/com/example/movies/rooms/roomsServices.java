@@ -34,4 +34,22 @@ public class roomsServices {
             this.error = error;
         }
     }
+    public static class roomsName{
+        private String name;
+
+        public roomsName(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+        public roomsName(){
+
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
 }

@@ -1,7 +1,10 @@
 package com.example.movies.seats;
 
+import com.example.movies.rooms.rooms;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface seatsRepository extends JpaRepository<seats,Integer> {
+import java.util.List;
 
+public interface seatsRepository extends JpaRepository<seats,Integer> {
+    List<seats> findByRooms(rooms rooms);
 }

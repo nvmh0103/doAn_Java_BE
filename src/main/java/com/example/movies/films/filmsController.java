@@ -1,7 +1,8 @@
-package com.example.movies.Films;
+package com.example.movies.films;
 
 
-import com.example.movies.users.userServices;
+import com.example.movies.rooms.roomsRepository;
+import com.example.movies.schedules.schedulesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class filmsController {
 
     @Autowired
-    private FilmsRepository filmsRepository;
+    private com.example.movies.films.filmsRepository filmsRepository;
+
+    @Autowired
+    private schedulesRepository SchedulesRepository;
+
+    @Autowired
+    private roomsRepository RoomsRepository;
 
     @GetMapping(path="/films/get")
     public Iterable<films> getAllFilms(){
@@ -28,5 +35,7 @@ public class filmsController {
             return new ResponseEntity<filmsServices.response>(new filmsServices.badResponse("Something happened!"),HttpStatus.BAD_REQUEST);
         }
     }
+
+
 
 }
