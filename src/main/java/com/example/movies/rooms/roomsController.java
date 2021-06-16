@@ -24,20 +24,22 @@ public class roomsController {
 
     @PostMapping(path="/rooms/create")
     @ResponseBody
-    public ResponseEntity<roomsServices.response> createRooms(@RequestBody rooms rooms,@RequestAttribute("email") String email){
+    public ResponseEntity<roomsServices.response> createRooms(@RequestBody roomsServices.roomsCreate rooms,@RequestAttribute("email") String email){
         users users= UsersRepository.findByEmail(email);
         if (users.getAdmin() == 0) {
             return new ResponseEntity<roomsServices.response>(new roomsServices.badResponse("Not authorized!"), HttpStatus.FORBIDDEN);
         }
-        rooms newRooms=rooms;
-        if (RoomsRepository.findByName(rooms.getName())!=null){
+        rooms newRooms=rooms.getRooms();
+        if (RoomsRepository.findByName(newRooms.getName())!=null){
             return new ResponseEntity<roomsServices.response>(new roomsServices.badResponse("Room has existed!"),HttpStatus.BAD_REQUEST);
         }
 
-        for(seats seats : rooms.getSeats()){
-            seats.setRooms(newRooms);
-        }
         RoomsRepository.save(newRooms);
+        System.out.println(rooms.getSeats().toString());
+        for(seats Seats : rooms.getSeats()){
+            Seats.setRooms(newRooms);
+            SeatsRepository.save(Seats);
+        }
         return new ResponseEntity<roomsServices.response>(new roomsServices.okResponse("Created!"),HttpStatus.CREATED);
     }
     @GetMapping(path="/rooms/getAllSeat")

@@ -87,4 +87,14 @@ public class seats {
     public void setBookedSeats(List<bookedSeat> bookedSeats) {
         this.bookedSeats = bookedSeats;
     }
+
+    @Override
+    public String toString() {
+        return "seats{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", kind='" + kind + '\'' +
+                ", basePrice=" + basePrice +
+                '}';
+    }
 }
