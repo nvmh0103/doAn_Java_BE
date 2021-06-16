@@ -30,6 +30,9 @@ public class roomsController {
             return new ResponseEntity<roomsServices.response>(new roomsServices.badResponse("Not authorized!"), HttpStatus.FORBIDDEN);
         }
         rooms newRooms=rooms;
+        if (RoomsRepository.findByName(rooms.getName())!=null){
+            return new ResponseEntity<roomsServices.response>(new roomsServices.badResponse("Room has existed!"),HttpStatus.BAD_REQUEST);
+        }
 
         for(seats seats : rooms.getSeats()){
             seats.setRooms(newRooms);
@@ -40,7 +43,6 @@ public class roomsController {
     @GetMapping(path="/rooms/getAllSeat")
     @ResponseBody
     public ResponseEntity<Iterable<seats>> getAllSeats(@RequestBody roomsServices.roomsName roomName){
-        System.out.println(roomName.getName());
         rooms newRoom=RoomsRepository.findByName(roomName.getName());
         if (newRoom!=null){
             return new ResponseEntity<Iterable<seats>>(SeatsRepository.findByRooms(newRoom),HttpStatus.OK);

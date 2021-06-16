@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface filmsRepository extends JpaRepository<films,Integer> {
     films findById(long id);
+    films findByName(String name);
 }

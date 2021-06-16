@@ -6,7 +6,7 @@ public class schedulesService {
     public static class response{
 
     }
-    public static class okResponse extends filmsServices.response {
+    public static class okResponse extends schedulesService.response {
         private String message;
         public okResponse(String message) {
             this.message = message;
@@ -20,7 +20,7 @@ public class schedulesService {
             this.message = message;
         }
     }
-    public static class badResponse extends filmsServices.response {
+    public static class badResponse extends schedulesService.response {
         private String error;
 
         public badResponse(String error) {
@@ -80,6 +80,24 @@ public class schedulesService {
                     ", film=" + film +
                     ", rooms=" + rooms +
                     '}';
+        }
+    }
+    public static class getAllBookedSeat{
+        private int schedules_id;
+
+        public getAllBookedSeat(){
+
+        }
+        public getAllBookedSeat(int schedules_id) {
+            this.schedules_id = schedules_id;
+        }
+
+        public int getSchedules_id() {
+            return schedules_id;
+        }
+
+        public void setSchedules_id(int schedules_id) {
+            this.schedules_id = schedules_id;
         }
     }
 }

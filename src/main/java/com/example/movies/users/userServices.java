@@ -65,8 +65,67 @@ public class userServices {
         public void setIsAdmin(int isAdmin) {
             this.isAdmin = isAdmin;
         }
+
     }
 
+    public static class ticketDetails{
+        private String filmsName;
+        private String dateTime;
+        private String seats;
+        private String rooms;
+        private int price;
+
+        public ticketDetails(){
+
+        }
+        public ticketDetails(String filmsName, String dateTime, String seats, String rooms, int price) {
+            this.filmsName = filmsName;
+            this.dateTime = dateTime;
+            this.seats = seats;
+            this.rooms = rooms;
+            this.price = price;
+        }
+
+        public String getFilmsName() {
+            return filmsName;
+        }
+
+        public void setFilmsName(String filmsName) {
+            this.filmsName = filmsName;
+        }
+
+        public String getDateTime() {
+            return dateTime;
+        }
+
+        public void setDateTime(String dateTime) {
+            this.dateTime = dateTime;
+        }
+
+        public String getSeats() {
+            return seats;
+        }
+
+        public void setSeats(String seats) {
+            this.seats = seats;
+        }
+
+        public String getRooms() {
+            return rooms;
+        }
+
+        public void setRooms(String rooms) {
+            this.rooms = rooms;
+        }
+
+        public int getPrice() {
+            return price;
+        }
+
+        public void setPrice(int price) {
+            this.price = price;
+        }
+    }
     @Bean
     public static PasswordEncoder encoder(){
         return new BCryptPasswordEncoder();

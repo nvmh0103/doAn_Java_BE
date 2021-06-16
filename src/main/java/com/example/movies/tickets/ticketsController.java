@@ -51,6 +51,9 @@ public class ticketsController {
         schedules newSchedules=SchedulesRepository.findById(CreateTicket.getSchedules_id());
         films newFilms=FilmsRepository.findById(CreateTicket.getFilms_id());
         seats newSeats=SeatsRepository.findById(CreateTicket.getSeats_id());
+        if (newSchedules==null || newFilms==null || newSeats==null){
+            return new ResponseEntity<ticketsServices.response>(new ticketsServices.badResponse("Not valid!"),HttpStatus.BAD_REQUEST);
+        }
         // create bookedSeat first
         bookedSeat BookedSeat= new bookedSeat();
         BookedSeat.setSeats(newSeats);

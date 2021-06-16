@@ -1,5 +1,6 @@
 package com.example.movies.users;
 
+import com.example.movies.bookings_detail.booking_details;
 import com.example.movies.jwt.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -60,5 +64,23 @@ public class usersController {
     public users getUserProfile(@RequestAttribute("email") String email){
         users user= UsersRepository.findByEmail(email);
         return user;
+    }
+
+    @GetMapping(path="/users/getBookingDetails")
+    @ResponseBody
+    public Iterable<userServices.ticketDetails> getAllBookingDetails(@RequestAttribute("email") String email){
+        users User=UsersRepository.findByEmail(email);
+        List<booking_details> userBookingDetails=User.getBooking_details();
+        List<userServices.ticketDetails> allTicketDetails= new ArrayList<>();
+        for(booking_details booking_detail : userBookingDetails){
+            userServices.ticketDetails TicketDetails= new userServices.ticketDetails();
+            TicketDetails.setSeats(booking_detail.getBookedSeat().getSeats().getName());
+            TicketDetails.setDateTime(booking_detail.getBookedSeat().getSchedules().getStartAt().toString());
+            TicketDetails.setRooms(booking_detail.getBookedSeat().getSeats().getRooms().getName());
+            TicketDetails.setFilmsName(booking_detail.getBookedSeat().getSchedules().getFilm().getName());
+            TicketDetails.setPrice(booking_detail.getTickets().getPrice());
+            allTicketDetails.add(TicketDetails);
+        }
+        return allTicketDetails;
     }
 }
