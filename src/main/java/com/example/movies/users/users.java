@@ -3,6 +3,7 @@ package com.example.movies.users;
 
 
 import com.example.movies.bookings_detail.booking_details;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.sql.Time;

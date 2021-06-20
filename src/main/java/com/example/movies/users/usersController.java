@@ -83,4 +83,23 @@ public class usersController {
         }
         return allTicketDetails;
     }
+
+    @GetMapping(path="/users/getAllUsers")
+    @ResponseBody
+    public ResponseEntity<Iterable<users>> getAllUser(@RequestAttribute("email") String email){
+        if (UsersRepository.findByEmail(email).getAdmin() == 0){
+            return new ResponseEntity<Iterable<users>>(new ArrayList<users>(),HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<Iterable<users>>(UsersRepository.findAll(),HttpStatus.OK);
+    }
+
+    @PatchMapping(path="/users/changeUsers")
+    @ResponseBody
+    public ResponseEntity<userServices.response> changeSchedule(@RequestAttribute("email") String email,userServices.changeUser changUser){
+        if (UsersRepository.findByEmail((email))==null){
+            return new ResponseEntity<userServices.response>(new userServices.badResponse("User doesnt existt"),HttpStatus.BAD_REQUEST);
+        }
+        users newUser=UsersRepository.findByEmail(email);
+        return null;
+    }
 }
