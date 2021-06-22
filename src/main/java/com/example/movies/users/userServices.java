@@ -183,6 +183,17 @@ public class userServices {
         public void setUserName(String userName) {
             this.userName = userName;
         }
+
+        @Override
+        public String toString() {
+            return "changeUser{" +
+                    "fullName='" + fullName + '\'' +
+                    ", email='" + email + '\'' +
+                    ", password='" + password + '\'' +
+                    ", phone='" + phone + '\'' +
+                    ", userName='" + userName + '\'' +
+                    '}';
+        }
     }
     @Bean
     public static PasswordEncoder encoder(){

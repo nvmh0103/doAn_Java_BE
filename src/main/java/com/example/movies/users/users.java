@@ -105,4 +105,18 @@ public class users {
     public void setBooking_details(List<com.example.movies.bookings_detail.booking_details> booking_details) {
         this.booking_details = booking_details;
     }
+
+    @Override
+    public String toString() {
+        return "users{" +
+                "id=" + id +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userName='" + userName + '\'' +
+                ", admin=" + admin +
+                ", booking_details=" + booking_details +
+                '}';
+    }
 }

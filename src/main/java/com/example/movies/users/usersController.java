@@ -95,11 +95,40 @@ public class usersController {
 
     @PatchMapping(path="/users/changeUsers")
     @ResponseBody
-    public ResponseEntity<userServices.response> changeSchedule(@RequestAttribute("email") String email,userServices.changeUser changUser){
+    public ResponseEntity<userServices.response> changeUsers(@RequestBody userServices.changeUser changedUser,@RequestAttribute("email") String email){
         if (UsersRepository.findByEmail((email))==null){
-            return new ResponseEntity<userServices.response>(new userServices.badResponse("User doesnt existt"),HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<userServices.response>(new userServices.badResponse("User does not exist!"),HttpStatus.BAD_REQUEST);
         }
         users newUser=UsersRepository.findByEmail(email);
-        return null;
+        if (changedUser.getEmail()!= null){
+            newUser.setEmail(changedUser.getEmail());
+        }
+        if (changedUser.getFullName()!= null){
+            newUser.setFullName(changedUser.getFullName());
+        }
+        if (changedUser.getPassword()!= null){
+            newUser.setPassword(passwordEncoder.encode(changedUser.getPassword()));
+        }
+        if (changedUser.getPhone()!= null){
+            newUser.setPhone(changedUser.getPhone());
+        }
+        if (changedUser.getUserName()!= null){
+            newUser.setUserName(changedUser.getUserName());
+        }
+
+        UsersRepository.save(newUser);
+        return new ResponseEntity<userServices.response>(new userServices.okResponse("Success!"),HttpStatus.OK);
+    }
+
+    @DeleteMapping(path="/users/delete")
+    @ResponseBody
+    public ResponseEntity<userServices.response> deleteUser(@RequestAttribute("email") String email){
+        users newUser=UsersRepository.findByEmail(email);
+        try{
+            UsersRepository.delete(newUser);
+            return new ResponseEntity<userServices.response>(new userServices.okResponse("Deleted!"),HttpStatus.OK);
+        } catch(Exception ex){
+            return new ResponseEntity<userServices.response>(new userServices.badResponse("Something wrong happened!"),HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -47,6 +47,44 @@ public class filmsController {
             return new ResponseEntity<filmsServices.response>(new filmsServices.badResponse("Something happened!"),HttpStatus.BAD_REQUEST);
         }
     }
+    @DeleteMapping(path="/films/delete")
+    @ResponseBody
+    public ResponseEntity<filmsServices.response> deleteFilm(@RequestBody filmsServices.deleteFilm deletedFilm,@RequestAttribute("email") String email){
+        if (UsersRepository.findByEmail(email).getAdmin()!=1){
+            return new ResponseEntity<filmsServices.response>(new filmsServices.badResponse("Not authorized!"),HttpStatus.FORBIDDEN);
+        }
+        filmsRepository.delete(filmsRepository.findById(deletedFilm.getId()));
+        return new ResponseEntity<filmsServices.response>(new filmsServices.okResponse("Sucess!"),HttpStatus.OK);
+    }
+
+    @PatchMapping(path="/films/changeFilms")
+    @ResponseBody
+    public ResponseEntity<filmsServices.response> changeFilm(@RequestBody filmsServices.changeFilm changedFilm,@RequestAttribute("email") String email){
+        if (UsersRepository.findByEmail(email).getAdmin()!=1){
+            return new ResponseEntity<filmsServices.response>(new filmsServices.badResponse("Not authorized!"),HttpStatus.FORBIDDEN);
+        }
+        films newFilm=filmsRepository.findById(changedFilm.getId());
+        if (changedFilm.getActor()!=null){
+            newFilm.setActor(changedFilm.getActor());
+        }
+        if (changedFilm.getCountry()!=null){
+            newFilm.setCountry(changedFilm.getCountry());
+        }
+        if (changedFilm.getDescription()!=null){
+            newFilm.setDescription(changedFilm.getDescription());
+        }
+        if (changedFilm.getName()!=null){
+            newFilm.setName(changedFilm.getName());
+        }
+        if (changedFilm.getDirector()!=null){
+            newFilm.setDirector(changedFilm.getDirector());
+        }
+        if (changedFilm.getPictureLink()!=null) {
+            newFilm.setPictureLink(changedFilm.getPictureLink());
+        }
+        filmsRepository.save(newFilm);
+        return new ResponseEntity<filmsServices.response>(new filmsServices.okResponse("Success!"),HttpStatus.OK);
+    }
 
 
 
