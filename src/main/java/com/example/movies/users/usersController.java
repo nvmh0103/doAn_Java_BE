@@ -131,4 +131,14 @@ public class usersController {
             return new ResponseEntity<userServices.response>(new userServices.badResponse("Something wrong happened!"),HttpStatus.BAD_REQUEST);
         }
     }
+
+    @DeleteMapping(path="/users/adminDelete")
+    @ResponseBody
+    public ResponseEntity<userServices.response> adminDeleteUser(@RequestBody userServices.adminDeleteUser deletedUser,@RequestAttribute("email") String email){
+        if (UsersRepository.findByEmail(email).getAdmin()!=1){
+            return new ResponseEntity<userServices.response>(new userServices.badResponse("Not authorized!"),HttpStatus.FORBIDDEN);
+        }
+        UsersRepository.delete(UsersRepository.findById(deletedUser.getId()));
+        return new ResponseEntity<userServices.response>(new userServices.okResponse("Success!"),HttpStatus.OK);
+    }
 }

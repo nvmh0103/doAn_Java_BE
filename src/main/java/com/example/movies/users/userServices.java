@@ -11,6 +11,24 @@ public class userServices {
 
     }
 
+    public static class adminDeleteUser{
+        private long id;
+        adminDeleteUser(){
+
+        }
+
+        public adminDeleteUser(long id) {
+            this.id = id;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+    }
     public static class okResponse extends response{
         private String message;
 
