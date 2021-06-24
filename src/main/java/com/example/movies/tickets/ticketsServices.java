@@ -2,6 +2,9 @@ package com.example.movies.tickets;
 
 import com.example.movies.films.filmsServices;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ticketsServices {
     public static class response{
 
@@ -39,7 +42,7 @@ public class ticketsServices {
     public static class createTicket{
         private tickets ticket;
         private int schedules_id;
-        private int seats_id;
+        private List<Integer> seats_id= new ArrayList<Integer>();
         private int films_id;
         private int rooms_id;
 
@@ -47,7 +50,7 @@ public class ticketsServices {
 
         }
 
-        public createTicket(tickets ticket, int schedules_id, int seats_id, int films_id, int rooms_id) {
+        public createTicket(tickets ticket, int schedules_id, List<Integer> seats_id, int films_id, int rooms_id) {
             this.ticket = ticket;
             this.schedules_id = schedules_id;
             this.seats_id = seats_id;
@@ -71,11 +74,11 @@ public class ticketsServices {
             this.schedules_id = schedules_id;
         }
 
-        public int getSeats_id() {
+        public List<Integer> getSeats_id() {
             return seats_id;
         }
 
-        public void setSeats_id(int seats_id) {
+        public void setSeats_id(List<Integer> seats_id) {
             this.seats_id = seats_id;
         }
 
