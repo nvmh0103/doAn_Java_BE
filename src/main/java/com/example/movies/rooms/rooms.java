@@ -19,6 +19,7 @@ public class rooms {
     @OneToMany(mappedBy = "rooms",cascade = CascadeType.ALL)
     private List<seats> seats=new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy= "rooms")
     private List<schedules> schedule=new ArrayList<>();
 

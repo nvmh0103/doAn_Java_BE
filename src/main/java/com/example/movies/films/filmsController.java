@@ -2,6 +2,7 @@ package com.example.movies.films;
 
 
 import com.example.movies.rooms.roomsRepository;
+import com.example.movies.schedules.schedules;
 import com.example.movies.schedules.schedulesRepository;
 import com.example.movies.users.users;
 import com.example.movies.users.usersRepository;
@@ -28,6 +29,12 @@ public class filmsController {
     @GetMapping(path="/films/get")
     public Iterable<films> getAllFilms(){
         return filmsRepository.findAll();
+    }
+
+    @GetMapping(path="/films/getAllSchedules")
+    @ResponseBody
+    public Iterable<schedules> getAllSchedulesOfFilms(@RequestParam long films_id){
+        return filmsRepository.findById(films_id).getListSchedules();
     }
 
     @PostMapping(path="/films/create")

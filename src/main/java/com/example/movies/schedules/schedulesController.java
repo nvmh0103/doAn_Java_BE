@@ -50,13 +50,12 @@ public class schedulesController {
 
     @GetMapping(path="/schedules/getAllBookedSeat")
     @ResponseBody
-    public ResponseEntity<Iterable<String>> getAllBookedSeat(@RequestBody schedulesService.getAllBookedSeat schedules){
-        schedules Schedule=SchedulesRepository.findById(schedules.getSchedules_id());
+    public ResponseEntity<Iterable<String>> getAllBookedSeat(@RequestParam long schedules_id){
+        schedules Schedule=SchedulesRepository.findById(schedules_id);
         if (Schedule==null){
             return new ResponseEntity<Iterable<String>>(new ArrayList<String>(), HttpStatus.BAD_REQUEST);
         }
         List<bookedSeat> ScheduleBookedSeat=Schedule.getBookedSeats();
-        System.out.println(ScheduleBookedSeat.toString());
         List<String> bookedSeatName=new ArrayList<>();
         for (bookedSeat BookedSeat : ScheduleBookedSeat){
             if (BookedSeat.getSeats() != null){

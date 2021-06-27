@@ -25,7 +25,6 @@ public class schedules {
     @JoinColumn(name = "films_id")
     private films film;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="rooms_id")
     private rooms rooms;
