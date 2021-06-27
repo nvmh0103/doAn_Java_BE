@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 public class filmsController {
 
@@ -33,8 +35,10 @@ public class filmsController {
 
     @GetMapping(path="/films/getAllSchedules")
     @ResponseBody
-    public Iterable<schedules> getAllSchedulesOfFilms(@RequestParam long films_id){
-        return filmsRepository.findById(films_id).getListSchedules();
+    public ResponseEntity<Iterable<schedules>> getAllSchedulesOfFilms(@RequestParam long films_id){
+        if (filmsRepository.findById(films_id).getListSchedules() == null)
+            return new ResponseEntity<Iterable<schedules>>(new ArrayList<>(),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Iterable<schedules>>(filmsRepository.findById(films_id).getListSchedules(),HttpStatus.OK);
     }
 
     @PostMapping(path="/films/create")
