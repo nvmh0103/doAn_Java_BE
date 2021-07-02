@@ -20,7 +20,7 @@ public class films {
 
 
     @OneToMany
-    private List<schedules> listSchedules= new ArrayList<>();
+    private List<schedules> schedules= new ArrayList<>();
 
     public films(){
 
@@ -35,7 +35,7 @@ public class films {
         this.description = description;
         this.country = country;
         this.pictureLink = pictureLink;
-        this.listSchedules = listSchedules;
+        this.schedules = listSchedules;
     }
 
     public long getId() {
@@ -103,10 +103,10 @@ public class films {
     }
 
     public List<schedules> getListSchedules() {
-        return listSchedules;
+        return schedules;
     }
 
     public void setListSchedules(List<schedules> listSchedules) {
-        this.listSchedules = listSchedules;
+        this.schedules = listSchedules;
     }
 }

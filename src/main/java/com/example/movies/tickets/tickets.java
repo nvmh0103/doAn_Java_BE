@@ -2,6 +2,7 @@ package com.example.movies.tickets;
 
 import com.example.movies.bookings_detail.booking_details;
 import com.example.movies.schedules.schedules;
+import com.example.movies.users.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -18,6 +19,11 @@ public class tickets {
     @ManyToOne
     @JoinColumn(name="schedules_id")
     private schedules schedules;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="users_id")
+    private users users;
 
     @JsonIgnore
     @OneToOne(mappedBy = "tickets")
@@ -70,5 +76,13 @@ public class tickets {
 
     public void setBooking_details(com.example.movies.bookings_detail.booking_details booking_details) {
         this.booking_details = booking_details;
+    }
+
+    public users getUser() {
+        return users;
+    }
+
+    public void setUser(users users) {
+        this.users = users;
     }
 }

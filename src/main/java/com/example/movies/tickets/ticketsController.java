@@ -52,64 +52,49 @@ public class ticketsController {
         schedules newSchedules=SchedulesRepository.findById(CreateTicket.getSchedules_id());
         films newFilms=FilmsRepository.findById(CreateTicket.getFilms_id());
         List<seats> newSeats=new ArrayList<seats>();
-
-        for (int id : CreateTicket.getSeats_id()){
-            newSeats.add(SeatsRepository.findById(id));
-        }
         if (newSchedules==null || newFilms==null || newSeats==null){
             return new ResponseEntity<ticketsServices.response>(new ticketsServices.badResponse("Not valid!"),HttpStatus.BAD_REQUEST);
         }
-        // create bookedSeat first
+
+
+        // save ticket first;
+        newTicket.setSchedules(newSchedules);
+        newTicket.setUser(Users);
+        System.out.println(Users.getTickets().size());
+        TicketsRepository.save(newTicket);
+        System.out.println(Users.getTickets().size());
+
+        // save ticket for user
+        List<tickets> usersTickets=Users.getTickets();
+        usersTickets.add(newTicket);
+        Users.setTickets(usersTickets);
+        UsersRepository.save(Users);
+        for (int id : CreateTicket.getSeats_id()){
+            newSeats.add(SeatsRepository.findById(id));
+        }
+
         for (seats Seat : newSeats){
             bookedSeat BookedSeat= new bookedSeat();
             BookedSeat.setSeats(Seat);
             BookedSeat.setSchedules(newSchedules);
             BookedSeatRepository.save(BookedSeat);
-
-            // add bookedSeat to seats and schedules
-            // to seats
-            List<bookedSeat> seatsBookedSeat=Seat.getBookedSeats();
-            seatsBookedSeat.add(BookedSeat);
-            Seat.setBookedSeats(seatsBookedSeat);
-            SeatsRepository.save(Seat);
+            System.out.println(Users.getTickets().size());
 
             // to schedules
             List<bookedSeat> schedulesBookedSeat= newSchedules.getBookedSeats();
             schedulesBookedSeat.add(BookedSeat);
             newSchedules.setBookedSeats(schedulesBookedSeat);
             SchedulesRepository.save(newSchedules);
-
-
-            // save ticket
-            // add schedules to ticket
-            newTicket.setSchedules(newSchedules);
-            TicketsRepository.save(newTicket);
-
-            // add ticket to schedule
-            List<tickets> listTickets=newSchedules.getTickets();
-            listTickets.add(newTicket);
-            newSchedules.setTickets(listTickets);
-            SchedulesRepository.save(newSchedules);
+            System.out.println(Users.getTickets().size());
 
             // save booking_detail
             booking_details Booking_details= new booking_details();
             Booking_details.setBookedSeat(BookedSeat);
-            Booking_details.setUsers(Users);
             Booking_details.setTickets(newTicket);
             Booking_detailsRepository.save(Booking_details);
-
-
-            // save bookings_detail for user
-            List<booking_details> usersBookingDetails=Users.getBooking_details();
-            usersBookingDetails.add(Booking_details);
-            Users.setBooking_details(usersBookingDetails);
-            UsersRepository.save(Users);
-
-
+            System.out.println(Users.getTickets().size());
         }
-
         return new ResponseEntity<ticketsServices.response>(new ticketsServices.okResponse("Created!"),HttpStatus.CREATED);
-
     }
 
 }

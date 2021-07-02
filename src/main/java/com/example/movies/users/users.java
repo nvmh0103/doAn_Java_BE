@@ -3,6 +3,7 @@ package com.example.movies.users;
 
 
 import com.example.movies.bookings_detail.booking_details;
+import com.example.movies.tickets.tickets;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -25,8 +26,9 @@ public class users {
     private int admin;
     // relationship
 
+    @JsonIgnore
     @OneToMany(mappedBy = "users")
-    private List<booking_details> booking_details=new ArrayList<>();
+    private List<tickets> Tickets=new ArrayList<>();
 
     public users(){
 
@@ -98,25 +100,13 @@ public class users {
         this.admin = admin;
     }
 
-    public List<com.example.movies.bookings_detail.booking_details> getBooking_details() {
-        return booking_details;
+    public List<com.example.movies.tickets.tickets> getTickets() {
+        return Tickets;
     }
 
-    public void setBooking_details(List<com.example.movies.bookings_detail.booking_details> booking_details) {
-        this.booking_details = booking_details;
+    public void setTickets(List<com.example.movies.tickets.tickets> tickets) {
+        this.Tickets = tickets;
     }
 
-    @Override
-    public String toString() {
-        return "users{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", phone='" + phone + '\'' +
-                ", userName='" + userName + '\'' +
-                ", admin=" + admin +
-                ", booking_details=" + booking_details +
-                '}';
-    }
+
 }

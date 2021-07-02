@@ -21,11 +21,6 @@ public class booking_details {
     private tickets tickets;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private users users;
-
-    @JsonIgnore
     @OneToOne
     @JoinColumn(name="bookedSeat_id")
     private bookedSeat bookedSeat;
@@ -34,10 +29,9 @@ public class booking_details {
 
     }
 
-    public booking_details(long id, com.example.movies.tickets.tickets tickets, com.example.movies.users.users users, com.example.movies.bookedSeat.bookedSeat bookedSeat) {
+    public booking_details(long id, com.example.movies.tickets.tickets tickets, com.example.movies.bookedSeat.bookedSeat bookedSeat) {
         this.id = id;
         this.tickets = tickets;
-        this.users = users;
         this.bookedSeat = bookedSeat;
     }
 
@@ -55,14 +49,6 @@ public class booking_details {
 
     public void setTickets(com.example.movies.tickets.tickets tickets) {
         this.tickets = tickets;
-    }
-
-    public com.example.movies.users.users getUsers() {
-        return users;
-    }
-
-    public void setUsers(com.example.movies.users.users users) {
-        this.users = users;
     }
 
     public com.example.movies.bookedSeat.bookedSeat getBookedSeat() {

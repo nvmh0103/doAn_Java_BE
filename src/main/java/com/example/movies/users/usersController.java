@@ -1,7 +1,9 @@
 package com.example.movies.users;
 
 import com.example.movies.bookings_detail.booking_details;
+import com.example.movies.bookings_detail.booking_detailsRepository;
 import com.example.movies.jwt.util.JwtUtil;
+import com.example.movies.tickets.tickets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,9 @@ public class usersController {
     private usersRepository UsersRepository;
     @Autowired
     private JwtUtil jwt;
+
+    @Autowired
+    private booking_detailsRepository Booking_detailsRepository;
 
 
     private PasswordEncoder passwordEncoder=userServices.encoder();
@@ -70,16 +75,27 @@ public class usersController {
     @ResponseBody
     public Iterable<userServices.ticketDetails> getAllBookingDetails(@RequestAttribute("email") String email){
         users User=UsersRepository.findByEmail(email);
-        List<booking_details> userBookingDetails=User.getBooking_details();
+        List<tickets> userTicket=User.getTickets();
         List<userServices.ticketDetails> allTicketDetails= new ArrayList<>();
-        for(booking_details booking_detail : userBookingDetails){
+        tickets prev=userTicket.get(userTicket.size()-1);
+        boolean firstOne=true;
+        for(tickets Ticket: userTicket){
+            if ((prev == Ticket) && !firstOne){
+                continue;
+            }
             userServices.ticketDetails TicketDetails= new userServices.ticketDetails();
-            TicketDetails.setSeats(booking_detail.getBookedSeat().getSeats().getName());
-            TicketDetails.setDateTime(booking_detail.getBookedSeat().getSchedules().getStartAt().toString());
-            TicketDetails.setRooms(booking_detail.getBookedSeat().getSeats().getRooms().getName());
-            TicketDetails.setFilmsName(booking_detail.getBookedSeat().getSchedules().getFilm().getName());
-            TicketDetails.setPrice(booking_detail.getTickets().getPrice());
+            TicketDetails.setFilmsName(Ticket.getSchedules().getFilm().getName());
+            TicketDetails.setDateTime(Ticket.getSchedules().getStartAt().toString());
+            TicketDetails.setRooms(Ticket.getSchedules().getRooms().getName());
+            TicketDetails.setPrice(Ticket.getPrice());
+            List<String> seatsName= new ArrayList<>();
+            for(booking_details booking: Booking_detailsRepository.findByTickets(Ticket)){
+                seatsName.add(booking.getBookedSeat().getSeats().getName());
+            }
+            TicketDetails.setSeats(seatsName);
             allTicketDetails.add(TicketDetails);
+            prev=Ticket;
+            firstOne=false;
         }
         return allTicketDetails;
     }
@@ -140,5 +156,11 @@ public class usersController {
         }
         UsersRepository.delete(UsersRepository.findById(deletedUser.getId()));
         return new ResponseEntity<userServices.response>(new userServices.okResponse("Success!"),HttpStatus.OK);
+    }
+
+    @GetMapping(path="/users/getTicket")
+    @ResponseBody
+    public Iterable<tickets> getAllTicket(@RequestAttribute("email") String email){
+        return (UsersRepository.findByEmail(email).getTickets());
     }
 }

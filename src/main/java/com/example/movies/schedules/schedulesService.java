@@ -37,15 +37,15 @@ public class schedulesService {
     }
     public static class addSchedule {
         private schedules schedule;
-        private int film;
+        private int films;
         private int rooms;
 
         public addSchedule(){
 
         }
-        public addSchedule(schedules schedule, int film, int rooms) {
+        public addSchedule(schedules schedule, int films, int rooms) {
             this.schedule = schedule;
-            this.film = film;
+            this.films = films;
             this.rooms = rooms;
         }
 
@@ -58,11 +58,11 @@ public class schedulesService {
         }
 
         public int getFilm() {
-            return film;
+            return films;
         }
 
         public void setFilm(int film) {
-            this.film = film;
+            this.films = film;
         }
 
         public int getRooms() {
@@ -77,7 +77,7 @@ public class schedulesService {
         public String toString() {
             return "addSchedule{" +
                     "schedule=" + schedule +
-                    ", film=" + film +
+                    ", film=" + films +
                     ", rooms=" + rooms +
                     '}';
         }

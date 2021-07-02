@@ -6,6 +6,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class userServices {
     public static class response{
 
@@ -89,14 +92,14 @@ public class userServices {
     public static class ticketDetails{
         private String filmsName;
         private String dateTime;
-        private String seats;
+        private List<String> seats=new ArrayList<String>();
         private String rooms;
         private int price;
 
         public ticketDetails(){
 
         }
-        public ticketDetails(String filmsName, String dateTime, String seats, String rooms, int price) {
+        public ticketDetails(String filmsName, String dateTime,List<String> seats, String rooms, int price) {
             this.filmsName = filmsName;
             this.dateTime = dateTime;
             this.seats = seats;
@@ -120,11 +123,11 @@ public class userServices {
             this.dateTime = dateTime;
         }
 
-        public String getSeats() {
+        public List<String> getSeats() {
             return seats;
         }
 
-        public void setSeats(String seats) {
+        public void setSeats(List<String> seats) {
             this.seats = seats;
         }
 
