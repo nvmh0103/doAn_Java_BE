@@ -7,6 +7,8 @@ import com.example.movies.schedules.schedulesRepository;
 import com.example.movies.users.users;
 import com.example.movies.users.usersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,17 @@ public class filmsController {
     public Iterable<films> getAllFilms(){
         return filmsRepository.findAll();
     }
+
+    @GetMapping(path="/films/getTotalPage")
+    public int getTotalOfPage(){
+        return filmsRepository.findAll(PageRequest.of(0,5)).getTotalPages();
+    }
+
+    @GetMapping(path="films/getFilmsByPage")
+    public Iterable<films> getFilmsByPage(@RequestParam int page){
+        return filmsRepository.findAll(PageRequest.of(page-1,5)).getContent();
+    }
+
 
     @GetMapping(path="/films/getAllSchedules")
     @ResponseBody
