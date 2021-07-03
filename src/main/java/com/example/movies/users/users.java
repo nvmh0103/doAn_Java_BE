@@ -2,16 +2,12 @@ package com.example.movies.users;
 
 
 
-import com.example.movies.bookings_detail.booking_details;
 import com.example.movies.tickets.tickets;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -28,7 +24,7 @@ public class users {
 
     @JsonIgnore
     @OneToMany(mappedBy = "users")
-    private List<tickets> Tickets=new ArrayList<>();
+    private List<tickets> tickets =new ArrayList<>();
 
     public users(){
 
@@ -101,11 +97,11 @@ public class users {
     }
 
     public List<com.example.movies.tickets.tickets> getTickets() {
-        return Tickets;
+        return tickets;
     }
 
     public void setTickets(List<com.example.movies.tickets.tickets> tickets) {
-        this.Tickets = tickets;
+        this.tickets = tickets;
     }
 
 

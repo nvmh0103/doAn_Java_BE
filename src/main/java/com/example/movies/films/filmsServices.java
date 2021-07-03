@@ -130,4 +130,22 @@ public class filmsServices {
             this.pictureLink = pictureLink;
         }
     }
+    public static class totalPage{
+        private int totalPage;
+        public totalPage(){
+
+        }
+
+        public totalPage(int totalPage) {
+            this.totalPage = totalPage;
+        }
+
+        public int getTotalPage() {
+            return totalPage;
+        }
+
+        public void setTotalPage(int totalPage) {
+            this.totalPage = totalPage;
+        }
+    }
 }

@@ -36,13 +36,22 @@ public class filmsController {
     }
 
     @GetMapping(path="/films/getTotalPage")
-    public int getTotalOfPage(){
-        return filmsRepository.findAll(PageRequest.of(0,5)).getTotalPages();
+    @ResponseBody
+    public ResponseEntity<filmsServices.totalPage> getTotalOfPage(@RequestAttribute("email") String email){
+        if (UsersRepository.findByEmail(email).getAdmin()==0){
+            return new ResponseEntity<filmsServices.totalPage>(new filmsServices.totalPage(0),HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<filmsServices.totalPage>(new filmsServices.totalPage(filmsRepository.findAll(PageRequest.of(0,5)).getTotalPages()),HttpStatus.OK);
+
     }
 
     @GetMapping(path="films/getFilmsByPage")
-    public Iterable<films> getFilmsByPage(@RequestParam int page){
-        return filmsRepository.findAll(PageRequest.of(page-1,5)).getContent();
+    public ResponseEntity<Iterable<films>> getFilmsByPage(@RequestParam int page,@RequestAttribute("email") String email){
+        if (UsersRepository.findByEmail(email).getAdmin()==0){
+            return new ResponseEntity<Iterable<films>>(new ArrayList<>(),HttpStatus.FORBIDDEN);
+        }
+
+        return new ResponseEntity<Iterable<films>>(filmsRepository.findAll(PageRequest.of(page-1,5)).getContent(),HttpStatus.OK);
     }
 
 

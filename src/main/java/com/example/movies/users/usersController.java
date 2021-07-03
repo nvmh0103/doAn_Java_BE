@@ -5,6 +5,7 @@ import com.example.movies.bookings_detail.booking_detailsRepository;
 import com.example.movies.jwt.util.JwtUtil;
 import com.example.movies.tickets.tickets;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -100,13 +101,22 @@ public class usersController {
         return allTicketDetails;
     }
 
+    @GetMapping(path="/users/getTotalPage")
+    @ResponseBody
+    public ResponseEntity<userServices.totalPage>getTotalPage(@RequestAttribute("email") String email){
+        if (UsersRepository.findByEmail(email).getAdmin() == 0){
+            return new ResponseEntity<userServices.totalPage>(new userServices.totalPage(0),HttpStatus.FORBIDDEN);
+        }
+        return new ResponseEntity<userServices.totalPage>(new userServices.totalPage(UsersRepository.findAll(PageRequest.of(0,5)).getTotalPages()),HttpStatus.OK);
+    }
+
     @GetMapping(path="/users/getAllUsers")
     @ResponseBody
-    public ResponseEntity<Iterable<users>> getAllUser(@RequestAttribute("email") String email){
+    public ResponseEntity<Iterable<users>> getAllUser(@RequestAttribute("email") String email,@RequestParam int page){
         if (UsersRepository.findByEmail(email).getAdmin() == 0){
             return new ResponseEntity<Iterable<users>>(new ArrayList<users>(),HttpStatus.FORBIDDEN);
         }
-        return new ResponseEntity<Iterable<users>>(UsersRepository.findAll(),HttpStatus.OK);
+        return new ResponseEntity<Iterable<users>>(UsersRepository.findAll(PageRequest.of(page-1,5)).getContent(),HttpStatus.OK);
     }
 
     @PatchMapping(path="/users/changeUsers")

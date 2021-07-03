@@ -147,6 +147,24 @@ public class userServices {
             this.price = price;
         }
     }
+    public static class totalPage{
+        private int totalPage;
+        public totalPage(){
+
+        }
+
+        public totalPage(int totalPage) {
+            this.totalPage = totalPage;
+        }
+
+        public int getTotalPage() {
+            return totalPage;
+        }
+
+        public void setTotalPage(int totalPage) {
+            this.totalPage = totalPage;
+        }
+    }
     public static class changeUser{
         private String fullName;
         private String email;
