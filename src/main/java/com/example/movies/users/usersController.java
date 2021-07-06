@@ -167,10 +167,4 @@ public class usersController {
         UsersRepository.delete(UsersRepository.findById(deletedUser.getId()));
         return new ResponseEntity<userServices.response>(new userServices.okResponse("Success!"),HttpStatus.OK);
     }
-
-    @GetMapping(path="/users/getTicket")
-    @ResponseBody
-    public Iterable<tickets> getAllTicket(@RequestAttribute("email") String email){
-        return (UsersRepository.findByEmail(email).getTickets());
-    }
 }

@@ -60,9 +60,7 @@ public class ticketsController {
         // save ticket first;
         newTicket.setSchedules(newSchedules);
         newTicket.setUser(Users);
-        System.out.println(Users.getTickets().size());
         TicketsRepository.save(newTicket);
-        System.out.println(Users.getTickets().size());
 
         // save ticket for user
         List<tickets> usersTickets=Users.getTickets();
@@ -78,21 +76,20 @@ public class ticketsController {
             BookedSeat.setSeats(Seat);
             BookedSeat.setSchedules(newSchedules);
             BookedSeatRepository.save(BookedSeat);
-            System.out.println(Users.getTickets().size());
+
 
             // to schedules
             List<bookedSeat> schedulesBookedSeat= newSchedules.getBookedSeats();
             schedulesBookedSeat.add(BookedSeat);
             newSchedules.setBookedSeats(schedulesBookedSeat);
             SchedulesRepository.save(newSchedules);
-            System.out.println(Users.getTickets().size());
+
 
             // save booking_detail
             booking_details Booking_details= new booking_details();
             Booking_details.setBookedSeat(BookedSeat);
             Booking_details.setTickets(newTicket);
             Booking_detailsRepository.save(Booking_details);
-            System.out.println(Users.getTickets().size());
         }
         return new ResponseEntity<ticketsServices.response>(new ticketsServices.okResponse("Created!"),HttpStatus.CREATED);
     }
